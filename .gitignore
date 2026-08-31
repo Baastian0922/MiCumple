@@ -1,0 +1,49 @@
+# Archivos del Sistema Operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Archivos de Editores e IDEs
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos temporales y de registro (Logs)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.tmp
+
+# Dependencias (En caso de añadir utilidades Node.js a futuro)
+node_modules/
+.npm/
+
+# Caché local y archivos temporales de agentes/herramientas
+.cache/
+.gemini/
+
+# Credenciales y configuración privada local
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+js/config.local.js
+
+# Imagen anterior del termo; la versión usada por el sitio es el archivo PNG
+img/termo_buffer_4_tapas.jpg

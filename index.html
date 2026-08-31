@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación a mi Cumpleaños 26 | Bastián</title>
+
+  <!-- Preconnect: abre las conexiones a CDNs externos antes de parsear el HTML -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- FontAwesome: carga sin bloquear el render -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+
+  <!-- Golden Streamers & Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Background Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Background Music Element (Local MP3 Stream) -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="music/jazz-sax.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Toggle Controller -->
+  <div class="music-widget" id="music-widget">
+    <div class="music-tooltip" id="music-tooltip">Click para activar música 🎷</div>
+    <button class="music-toggle-btn" id="music-toggle-btn" aria-label="Reproducir música de fondo">
+      <i class="fa-solid fa-music" id="music-icon"></i>
+    </button>
+  </div>
+
+  <div class="container" style="padding-top: 2rem;">
+
+    <!-- Clean Hero Section without borders -->
+    <header class="hero" id="home" style="margin-bottom: 2rem; padding: 3rem 0;">
+      <div class="hero-logo">
+        <i class="fa-solid fa-cake-candles"></i>
+      </div>
+      <p class="subtitle">¡Estás Invitado/a!</p>
+      <h1>Bastián Celebra su Cumpleaños 26</h1>
+      <p style="margin-top: 1rem; font-size: 1.15rem; color: var(--text-secondary);">
+        Te invito a compartir una noche especial llena de buena música, comida, conversación y unas buenas risas.
+      </p>
+
+      <!-- Cuenta Regresiva (Hero) -->
+      <div class="countdown" id="countdown-hero" style="margin: 2rem auto;">
+        <div class="countdown-box">
+          <span class="countdown-num days-val">00</span>
+          <span class="countdown-label">Días</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-num hours-val">00</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-num minutes-val">00</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-num seconds-val">00</span>
+          <span class="countdown-label">Seg</span>
+        </div>
+      </div>
+
+      <!-- Botones Principales -->
+      <div class="btn-group">
+        <a href="#rsvp" class="btn btn-gold">
+          <i class="fa-solid fa-calendar-check"></i> Confirmar Asistencia
+        </a>
+        <a href="#regalos" class="btn btn-purple">
+          <i class="fa-solid fa-gift"></i> Ver Opciones de Regalo
+        </a>
+      </div>
+    </header>
+
+    <!-- Información del Cumpleaños (2-Column Grid Layout) -->
+    <section class="card" id="info">
+      <h2>Información del Cumpleaños</h2>
+      <div class="info-grid">
+
+        <!-- Columna Izquierda: Fecha, Hora y Cuenta Regresiva -->
+        <div class="info-col">
+          <div class="info-header">
+            <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+            <h3>Fecha y hora</h3>
+          </div>
+          <p class="info-main-text">Sábado, 26 de Septiembre de 2026 de 14:00 a 18:00 hrs.</p>
+          <p class="info-note-text">
+            (Mi cumpleaños real es el 22 de Septiembre, pero lo celebraremos el sábado 26)
+          </p>
+
+          <!-- Cuenta Regresiva (Info) -->
+          <div class="countdown info-countdown" id="countdown-info">
+            <div class="countdown-box">
+              <span class="countdown-num days-val">00</span>
+              <span class="countdown-label">Días</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-num hours-val">00</span>
+              <span class="countdown-label">Horas</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-num minutes-val">00</span>
+              <span class="countdown-label">Min</span>
+            </div>
+            <div class="countdown-box">
+              <span class="countdown-num seconds-val">00</span>
+              <span class="countdown-label">Seg</span>
+            </div>
+          </div>
+
+          <!-- Botón de Recordatorio -->
+          <div class="calendar-btn-container" style="margin-top: 1.25rem; width: 100%;">
+            <button class="btn btn-gold btn-full-width" id="calendar-btn"
+              style="font-size: 0.88rem; padding: 0.6rem 1.2rem;">
+              <i class="fa-solid fa-calendar-plus"></i> Añadir a mi Calendario
+            </button>
+            <div class="calendar-dropdown" id="calendar-dropdown">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+26+de+Basti%C3%A1n+%F0%9F%8E%89&dates=20260926T170000Z%2F20260926T210000Z&details=%C2%A1Viva+el+cumplea%C3%B1ero%21+Vamos+a+la+celebraci%C3%B3n.+%F0%9F%93%8D+Importante%3A+la+entrada+a+los+quinchos+es+por+calle+Ger%C3%B3nimo+de+Alderete.&location=Parque+La+Araucana%2C+Ger%C3%B3nimo+de+Alderete+2400%2C+La+Florida"
+                target="_blank" class="calendar-opt">
+                <i class="fa-brands fa-google"></i> Google Calendar
+              </a>
+              <a href="#" id="ical-download-btn" class="calendar-opt">
+                <i class="fa-solid fa-calendar-day"></i> iCal / Apple / Outlook (.ics)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Ubicación y Botón de Google Maps -->
+        <div class="info-col">
+          <div class="info-header">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <h3>Ubicación</h3>
+          </div>
+          <p class="info-main-text">Parque La Araucana, La Florida</p>
+          <div class="access-highlight" role="note" aria-label="Acceso importante a los quinchos">
+            <i class="fa-solid fa-diamond-turn-right"></i>
+            <div>
+              <strong>Entrada a los quinchos</strong>
+              <span>Acceso por calle Gerónimo de Alderete</span>
+            </div>
+          </div>
+
+          <!-- Botón para ver en Google Maps -->
+          <div class="map-action-container">
+            <a href="https://maps.app.goo.gl/zeFfPFS3xpCnbVfb8" target="_blank" class="btn btn-purple btn-full-width">
+              <i class="fa-solid fa-map-marked-alt"></i> Ver en Google Maps
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Opciones de Regalo (Protegidas por Quiz Interactivo) -->
+    <section class="card" id="regalos">
+      <h2>Opciones de Regalo</h2>
+
+      <!-- Bloque del Quiz Interactivo (4 Preguntas) -->
+      <div id="quiz-wrapper" class="quiz-wrapper">
+        <div class="quiz-badge"><i class="fa-solid fa-gamepad"></i> Quiz Interactivo</div>
+        <h3 class="quiz-heading">Descubre el regalo ideal para Bastián 🎁</h3>
+        <p class="quiz-intro">Elige la respuesta que más se acerque a lo que conoces de mí. Al final te recomendaremos
+          dos secciones del catálogo.</p>
+
+        <div class="quiz-progress-container">
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 25%;"></div>
+          </div>
+          <div class="quiz-step-indicator" id="quiz-step-indicator">Pregunta 1 de 4</div>
+        </div>
+
+        <!-- Pregunta 1 -->
+        <div class="quiz-step active" data-step="1">
+          <h4 class="question-text">1. ¿Qué regalo me haría más feliz?</h4>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-opt-btn" data-categories="mate,cafe">
+              <span class="quiz-opt-icon">🧉☕</span>
+              <span class="quiz-opt-text">Algo para disfrutar el mate o el café</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="musica,tecno">
+              <span class="quiz-opt-icon">🎸🎧</span>
+              <span class="quiz-opt-text">Un accesorio de música o tecnología</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="deporte,extras">
+              <span class="quiz-opt-icon">🏋️‍♂️🥤</span>
+              <span class="quiz-opt-text">Algo para entrenar o llevar conmigo</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="cafe,extras">
+              <span class="quiz-opt-icon">☕⭐</span>
+              <span class="quiz-opt-text">Una botella térmica o algo para el café</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="quiz-step" data-step="2">
+          <h4 class="question-text">2. ¿Qué tendría más posibilidades de usar todos los días?</h4>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-opt-btn" data-categories="mate,extras">
+              <span class="quiz-opt-icon">🧉🥤</span>
+              <span class="quiz-opt-text">Un termo o accesorio matero</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="cafe,tecno">
+              <span class="quiz-opt-icon">☕💻</span>
+              <span class="quiz-opt-text">Café, tazas o algo para el computador</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="musica,extras">
+              <span class="quiz-opt-icon">🎧🎸</span>
+              <span class="quiz-opt-text">Audífonos o un accesorio musical</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="deporte,mate">
+              <span class="quiz-opt-icon">💪🧉</span>
+              <span class="quiz-opt-text">Algo para entrenar y un termo para después</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="quiz-step" data-step="3">
+          <h4 class="question-text">3. ¿Qué elegirías según mis hobbies?</h4>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-opt-btn" data-categories="musica,tecno">
+              <span class="quiz-opt-icon">🎸🎧</span>
+              <span class="quiz-opt-text">Algo para guitarra, audio o tecnología</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="deporte,extras">
+              <span class="quiz-opt-icon">🏋️‍♂️🥤</span>
+              <span class="quiz-opt-text">Algo para entrenar o mantenerme hidratado</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="mate,cafe">
+              <span class="quiz-opt-icon">🧉☕</span>
+              <span class="quiz-opt-text">Mate, yerba o café de especialidad</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="tecno,deporte">
+              <span class="quiz-opt-icon">💻⚡</span>
+              <span class="quiz-opt-text">Algo para el escritorio o mis entrenamientos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="quiz-step" data-step="4">
+          <h4 class="question-text">4. ¿Qué regalo representa mejor mi personalidad?</h4>
+          <div class="quiz-options-grid">
+            <button type="button" class="quiz-opt-btn" data-categories="mate,cafe">
+              <span class="quiz-opt-icon">🧉😊</span>
+              <span class="quiz-opt-text">Un detalle para compartir</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="deporte,extras">
+              <span class="quiz-opt-icon">⚡🎒</span>
+              <span class="quiz-opt-text">Algo activo y práctico</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="musica,tecno">
+              <span class="quiz-opt-icon">🎸💡</span>
+              <span class="quiz-opt-text">Algo creativo y tecnológico</span>
+            </button>
+            <button type="button" class="quiz-opt-btn" data-categories="musica,mate">
+              <span class="quiz-opt-icon">🎶🧉</span>
+              <span class="quiz-opt-text">Algo para mis momentos de música y mate</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner de Resultado de Quiz (Oculto inicialmente) -->
+      <div id="quiz-result-banner" class="quiz-result-banner" style="display: none;">
+        <div class="result-main">
+          <div class="result-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
+          <div>
+            <div class="result-title">¡Catálogo Desbloqueado! 🎉</div>
+            <div class="result-desc" id="result-recommendation-text">
+              Tus respuestas combinan: <strong id="recommended-category-name">Mate + Café</strong>.
+              <span id="recommended-category-description">Puedes comenzar explorando ambas selecciones.</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-purple btn-sm" id="redo-quiz-btn">
+          <i class="fa-solid fa-rotate-left"></i> Repetir Quiz
+        </button>
+      </div>
+
+      <!-- Contenedor de Categorías (Oculto hasta responder el Quiz) -->
+      <div id="gifts-content-wrapper" class="gifts-content-wrapper" style="display: none;">
+        <p class="gifts-desc">
+          Si deseas hacerme un regalo, he seleccionado algunas opciones por categorías que me gustarían. Haz click en
+          "Ver Referencia" para ver ideas de cada uno:
+        </p>
+
+        <!-- Categoría 1: Accesorios de Mate -->
+        <div class="gift-category-group" id="category-mate">
+          <h3 class="category-title"><i class="fa-solid fa-mug-hot"></i> Accesorios de Mate</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="yerbero-cuero">
+              <div class="gift-image-wrapper">
+                <img src="img/yerbero_cuero.png" alt="Yerbero Matero Rústico 100% Cuero" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Yerbero Matero Rústico 100% Cuero</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/yerbero-matero-rustico-100cuero/up/MLCU4426506857#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=41&type=product&tracking_id=f2fea3d7-32a7-430c-8ed2-d844797b6eae&wid=MLC4239782120&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="yerbero-cuero">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="yerba-playadito">
+              <div class="gift-image-wrapper">
+                <img src="img/yerba_playadito.png" alt="Yerba Mate Playadito 500gr" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Yerba Mate Playadito 500gr</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/yerba-mate-playadito-hierbas--tradicional--despalada-500gr/up/MLCU2284454027#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=2&type=product&tracking_id=df6d51f6-f9fa-48a0-9305-dc5d3a20a2d0&wid=MLC1536423137&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="yerba-playadito">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="yerba-esmeralda">
+              <div class="gift-image-wrapper">
+                <img src="img/yerba_esmeralda.png" alt="Yerba Mate Esmeralda 1 Kg" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Yerba Mate Esmeralda 1 Kg</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/yerba-mate-esmeralda-1-kg--yerba-despalada/up/MLCU3808641980#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=11&type=product&tracking_id=d330b6de-54f5-4d56-b567-0b57fc67886a&wid=MLC1859663367&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="yerba-esmeralda">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="termo-lhotse">
+              <div class="gift-image-wrapper">
+                <img src="img/termo_lhotse_black.jpg" alt="Termo Líquido Acero Inoxidable Classic 1,3 Lts Lhotse Black"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Termo Lhotse Classic 1,3L Black</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/termo-liquido-acero-inoxidable-classic-13-lts-lhotse-black-color-negro/p/MLC35944481?pdp_filters=item_id:MLC2941823644#polycard_client=recommendations_search-pads-btm&reco_backend=search_pads_btm_retrieval_search_trigger_products&reco_model=fallback_productos-promocionados&reco_client=search-pads-btm&reco_item_pos=0&reco_id=d2ba5ec5-5f15-4ddf-b2d3-bd4407717107&wid=MLC2941823644&sid=recos&is_advertising=true&ad_domain=SEARCHDESKTOP_BTM&ad_position=1&ad_click_id=MmYxYjhjZTQtYjc4MS00MGYzLTg3YjAtOGUzZjY5N2I1ZjFj"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="termo-lhotse">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoría 2: Accesorios de Café -->
+        <div class="gift-category-group" id="category-cafe">
+          <h3 class="category-title"><i class="fa-solid fa-mug-saucer"></i> Accesorios de Café</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="molinillo-sindelen">
+              <div class="gift-image-wrapper">
+                <img src="img/molinillo_sindelen.png" alt="Molinillo Moledor de Café Sindelen MOL-165"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Molinillo Moledor De Café Sindelen</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/molinillo-moledor-de-cafe-granos-sindelen-mol165-12-tazas/up/MLCU62619050#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=65&type=product&tracking_id=25764596-fd7d-4231-aa2e-2740a63b523c&wid=MLC614338244&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="molinillo-sindelen">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="cafe-senork-decaf">
+              <div class="gift-image-wrapper">
+                <img src="img/cafe_senor_k_decaf.png" alt="Café Descafeinado Grano Entero Señor K 250g"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Café Descafeinado Señor K 250g</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/cafe-descafeinado-grano-entero-senor-k-colombia-natural-250g/p/MLC45587747?pdp_filters=item_id:MLC1572143297#is_advertising=true&searchVariation=MLC45587747&backend_model=search-backend;EQ:PACK%20CAFE%20GRANO%20SENSOR%20K%20250G;EQ:CAFE%20GRANO%20SENSOR%20K;EQ:PACK%20SENSOR%20K&be_origin=backend&position=14&search_layout=grid&type=pad&tracking_id=d3da96a8-1fe8-4814-aeed-d9bb28e00193&ad_domain=VQCATCORE_LST&ad_position=14&ad_click_id=ZDcxMjg0YjYtZDc4Ny00ZDdkLTgxODktMTczZDI0OWI5YzJl"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="cafe-senork-decaf">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="cafe-senork-santarosa">
+              <div class="gift-image-wrapper">
+                <img src="img/cafe_senor_k_santarosa.png" alt="Café Grano Entero Señor K Santa Rosa 250g"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Café Grano Señor K Santa Rosa 250g</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/cafe-grano-entero-senor-k-colombia-santa-rosa-250g/p/MLC45456011?pdp_filters=item_id:MLC2832017536#is_advertising=true&searchVariation=MLC45456011&backend_model=search-backend;EQ:PACK%20CAFE%20GRANO%20SENSOR%20K%20250G;EQ:CAFE%20GRANO%20SENSOR%20K;EQ:PACK%20SENSOR%20K&be_origin=backend&position=3&search_layout=grid&type=pad&tracking_id=453cea6c-5f4a-43d8-b0e6-8974b94ea07f&ad_domain=VQCATCORE_LST&ad_position=3&ad_click_id=MDJkN2ZjZTMtMTZlYS00Y2Q1LWJmYzgtYzZlYmQyZDRiMWVh"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="cafe-senork-santarosa">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="tazas-espresso">
+              <div class="gift-image-wrapper">
+                <img src="img/tazas_espresso.png" alt="Pack 6 Tazas Espresso Vidrio Doble Pared 80ml" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Pack 6 Tazas Espresso Doble Pared</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/tazas-de-cafe-espresso-de-vidrio-doble-pared-80ml-pack-6-con-asa-wakeshome/p/MLC62596565?pdp_filters=item_id:MLC3366892556#is_advertising=true&searchVariation=MLC62596565&backend_model=search-backend;fallback_productos-promocionados_supple_view_buy;EQ:TAZAS%20CAFE%20EXPRESS&be_origin=backend&position=28&search_layout=grid&type=pad&tracking_id=77d129a6-2ec2-4ddf-998f-d42744793eee&ad_domain=VQCATCORE_LST&ad_position=28&ad_click_id=NmFhM2ZhNWUtNWY0Yi00M2QxLTg2ZWQtZWQ3NzRjOTU5ZmU2"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="tazas-espresso">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoría 3: Accesorios Deportivos -->
+        <div class="gift-category-group" id="category-deporte">
+          <h3 class="category-title"><i class="fa-solid fa-dumbbell"></i> Accesorios Deportivos</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="mat-yoga">
+              <div class="gift-image-wrapper">
+                <img src="img/mat_yoga.png" alt="Mat de Yoga 10 mm" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Mat de Yoga 10 mm</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/mat-de-yoga-10-mm-nbr-con-correa-de-transporte/up/MLCU64731233?pdp_filters=item_id:MLC3733872132#is_advertising=true&searchVariation=MLCU64731233&backend_model=search-backend&be_origin=backend&position=1&search_layout=grid&type=pad&tracking_id=7bd977c2-ec48-44c0-a2fc-52e9b686dda6&ad_domain=VQCATCORE_LST&ad_position=1&ad_click_id=MDRiMjc3NjMtZmUzYS00YmU0LWEzZTItYmM2OThmZjRlM2E3"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="mat-yoga">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="medias-futbol">
+              <div class="gift-image-wrapper">
+                <img src="img/medias_futbol.png" alt="Medias Fútbol Antideslizante" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Pack 10par Medias Fútbol Antideslizante</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/pack-10par-medias-futbol-antideslizante-transpirable-deporte/up/MLCU4087060082#polycard_client=recommendations_home_navigation-recommendations&reco_backend=machinalis-homes-univb-equivalent-offer&reco_client=home_navigation-recommendations&reco_item_pos=3&reco_backend_type=function&reco_id=150084c8-f789-47ff-b5b6-88bc85d8430a&wid=MLC4068951818&sid=recos&c_id=/home/navigation-recommendations/element&c_uid=b3e1a286-aa8f-45d9-bb5b-f100418e5103"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="medias-futbol">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="bandas-resistencia">
+              <div class="gift-image-wrapper">
+                <img src="img/bandas_resistencia.png" alt="Kit 5 Bandas de Resistencia" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Kit 5 Bandas de Resistencia</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/kit-5-ejercicio-bandas-resistenciabanda-elastica-deportiva/up/MLCU4237355909#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=39&type=product&tracking_id=20ee2a7d-81c6-479a-9c15-eb8795873473&wid=MLC4159957032&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="bandas-resistencia">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="creatina">
+              <div class="gift-image-wrapper">
+                <img src="img/creatina.png" alt="Creatina Monohidratada 300 gr" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Creatina Monohidratada 300 gr</span>
+                <div class="gift-actions">
+                  <a href="https://www.drsimi.cl/basic-creatine-creatina-monohidratada-micronizada-polvo-sin-olor-sin-gluten-pote-300-gr/p?idsku=475&gad_source=1&gad_campaignid=23873783661&gbraid=0AAAAAq9Me0H4vGHtT6P-GWfcpl9eNJYnq&gclid=Cj0KCQjwkOvTBhDgARIsAKUNyRuZnenRG2VYBDi1brThAFJ6iW1gxXJwY7xn3bKpSOIaAkx9ha6qQ8saAnJREALw_wcB"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="creatina">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoría 4: Accesorios de Música -->
+        <div class="gift-category-group" id="category-musica">
+          <h3 class="category-title"><i class="fa-solid fa-music"></i> Accesorios de Música</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="unetas-ernieball">
+              <div class="gift-image-wrapper">
+                <img src="img/unetas_ernie_ball.png" alt="Uñetas Ernie Ball Pack 50 Heavy 0.97mm" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Pack 50 Uñetas Ernie Ball 0.97mm</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/unetas-ernie-ball-p09132-pack-50-heavy-inj-molded-097mm/up/MLCU95954880?pdp_filters=item_id:MLC633589688#is_advertising=true&searchVariation=MLCU95954880&backend_model=search-backend&be_origin=backend&position=2&search_layout=grid&type=pad&tracking_id=c1a797a9-bb70-49e2-b57e-83f965da8137&ad_domain=VQCATCORE_LST&ad_position=2&ad_click_id=NzZlNTAzNTAtYjFjMi00OTEwLWEyY2UtMTkyNGFlZTIzMzFm"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="unetas-ernieball">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="correa-ernieball">
+              <div class="gift-image-wrapper">
+                <img src="img/correa_ernie_ball.png" alt="Correa Ernie Ball Gris Para Guitarra / Bajo"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Correa Ernie Ball Gris Guitarra/Bajo</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/correa-ernie-ball-p04046-gris-para-guitarra-bajo/p/MLC24263593#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=54&type=product&tracking_id=ac102262-b5af-4bb4-966c-cfd6322e0040&wid=MLC4196074014&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="correa-ernieball">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="atril-guitarra">
+              <div class="gift-image-wrapper">
+                <img src="img/atril_guitarra.png" alt="Atril Soporte Triple Para Guitarra Y Bajo Portátil"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Atril Soporte Triple Guitarra / Bajo</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/atril-soporte-triple-para-guitarra-y-bajo-portatil/p/MLC52946155#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=8&type=product&tracking_id=e5e2967b-5542-4013-9a22-e63a6d6f9c22&wid=MLC3023868946&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="atril-guitarra">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="cable-santoangelo">
+              <div class="gift-image-wrapper">
+                <img src="img/cable_santo_angelo.png" alt="Cable Guitarra Bajo 3m Santo Angelo Samurai"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Cable Guitarra/Bajo Santo Angelo 3m</span>
+                <div class="gift-actions">
+                  <a href="http://mercadolibre.cl/cable-guitarra-bajo-3m-santo-angelo-samurai-plug-audio-video-negro/p/MLC21430499#reviews"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="cable-santoangelo">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoría 5: Accesorios de Tecnología -->
+        <div class="gift-category-group" id="category-tecno">
+          <h3 class="category-title"><i class="fa-solid fa-laptop"></i> Accesorios de Tecnología</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="redmi-buds6">
+              <div class="gift-image-wrapper">
+                <img src="img/redmi_buds_6.png" alt="Audífonos Xiaomi Redmi Buds 6 Play" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Xiaomi Redmi Buds 6 Play Bluetooth 5.4</span>
+                <div class="gift-actions">
+                  <a href="https://www.paris.cl/audifonos-inalambricos-xiaomi-redmi-buds-6-play-bluetooth-54-MKVEVQU9DR.html"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="redmi-buds6">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="mousepad-redragon">
+              <div class="gift-image-wrapper">
+                <img src="img/mousepad_redragon.png" alt="Mouse Pad Gamer Redragon Flick XL 40x90cm" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Mouse Pad Redragon Flick XL (40x90cm)</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/mouse-pad-gamer-redragon-flick-de-goma-y-tela-pad-para-mouse-xl-40cm-x-90cm-x-4mm-negro/p/MLC16183540#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=61&type=product&tracking_id=3e56c892-745e-4ed6-bf4c-9d2e626afd20&wid=MLC4093089246&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="mousepad-redragon">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="joystick-ps4">
+              <div class="gift-image-wrapper">
+                <img src="img/joystick_ps4.png" alt="Control Joystick PS4 Monster Games" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Joystick PS4 Monster Games</span>
+                <div class="gift-actions">
+                  <a href="https://www.falabella.com/falabella-cl/product/16922968/Joystick-Ps4-Monster-Games/16922968"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="joystick-ps4">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="camara-portatil">
+              <div class="gift-image-wrapper">
+                <img src="img/camara_portatil.png" alt="Cámara De Cuerpo Portátil HD 1080p" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Cámara de Cuerpo Portátil HD 1080p</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/camara-de-cuerpo-portatil-hd-pantall-grabadoras-video-1080p-negro/p/MLC66608093?matt_tool=16931662&utm_source=google_shopping&utm_medium=organic&pdp_filters=item_id%3AMLC1889030941&from=gshop#reviews"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="camara-portatil">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoría 6: Extras -->
+        <div class="gift-category-group" id="category-extras">
+          <h3 class="category-title"><i class="fa-solid fa-star"></i> Extras</h3>
+          <div class="gifts-grid">
+            <div class="gift-card" data-gift-id="billetera-hardley">
+              <div class="gift-image-wrapper">
+                <img src="img/billetera_hardley.png" alt="Billetera Hombre De Cuero Hardley Tarjetero RFID"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Billetera Cuero Hardley RFID</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/billetera-hombre-de-cuero-hardley-tarjetero-bloqueo-rfid-color-negro-saffiano/p/MLC25568715#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=18&type=product&tracking_id=69f49dc8-5995-4faa-a149-9be3784df8fa&wid=MLC1864151564&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="billetera-hardley">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="termo-buffer-4-tapas">
+              <div class="gift-image-wrapper">
+                <img src="img/termo_buffer_4_tapas.png"
+                  alt="Termo Botella Agua Térmica Buffer de Acero Inoxidable con 4 Tapas Black Leopard"
+                  class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Termo Botella Buffer + 4 Tapas Black Leopard</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/termo-botella-agua-termica-acero-inoxidable-buffer-4-tapas-black-leopard/p/MLC53488723?pdp_filters=item_id%3AMLC3023734162"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="termo-buffer-4-tapas">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="audifonos-trnmte">
+              <div class="gift-image-wrapper">
+                <img src="img/audifonos_trn_mte.png" alt="Audífonos TRN MTE In-Ear Dinámicos" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Audífonos TRN MTE In-Ear</span>
+                <div class="gift-actions">
+                  <a href="http://mercadolibre.cl/audifonos-trn-mte-in-ear-dinamicos-full-bajos-sin-micro-color-cristal/p/MLC64955920#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=12&type=product&tracking_id=a77642b9-0d0c-4cd4-891e-e1afcd4c9b04&wid=MLC1965954987&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="audifonos-trnmte">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="lonchera-head">
+              <div class="gift-image-wrapper">
+                <img src="img/lonchera_head.png" alt="Lonchera Compacta Hombre Sherpa Negro Head" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Lonchera Head Sherpa Negro</span>
+                <div class="gift-actions">
+                  <a href="https://www.mercadolibre.cl/lonchera-compacta-hombre-sherpa-negro-head-negro/p/MLC74889882#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=43&type=product&tracking_id=cf189ce3-1176-4788-9832-27d4bf338121&wid=MLC4139018508&sid=search"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="lonchera-head">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="audifonos-lenovo">
+              <div class="gift-image-wrapper">
+                <img src="img/audifonos_lenovo.png" alt="Audífonos Bluetooth Lenovo E310 TWS Negro" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Audífonos Lenovo E310 TWS</span>
+                <div class="gift-actions">
+                  <a href="https://www.paris.cl/audifonos-bluetooth-e310-tws-negro-485571999.html" target="_blank"
+                    class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="audifonos-lenovo">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="capo-freeman">
+              <div class="gift-image-wrapper">
+                <img src="img/capo_freeman.png" alt="Capo Para Guitarra Freeman FRGCP7 Silver" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Capo Guitarra Freeman Silver</span>
+                <div class="gift-actions">
+                  <a href="https://www.audiomusica.com/capo-para-guitarra-acustica-o-electrica-freeman-frgcp7-color-silver/p"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="capo-freeman">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="cable-roland">
+              <div class="gift-image-wrapper">
+                <img src="img/cable_roland.png" alt="Cable Instrumento 1/4 Roland Black Series 1.5m" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Cable Instrumento Roland 1.5m</span>
+                <div class="gift-actions">
+                  <a href="https://www.audiomusica.com/cable-instrumento-1-4-roland-black-series-recto-a-angulado-15-m/p"
+                    target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="cable-roland">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="cera-cabello-boffel">
+              <div class="gift-image-wrapper">
+                <img src="img/cera_cabello_boffel.png" alt="Cera Para El Cabello Light Boffel 300gr" class="gift-image"
+                  loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Cera Para El Cabello Light 300gr</span>
+                <div class="gift-actions">
+                  <a href="https://www.tua.cl/cera-para-el-cabello-soft-300-gr/p" target="_blank" class="gift-link">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                  <button type="button" class="gift-reserve-btn" data-gift-id="cera-cabello-boffel">
+                    <i class="fa-solid fa-gift"></i> Reservar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card" data-gift-id="aporte-dinero">
+              <div class="gift-image-wrapper">
+                <img src="img/aporte_dinero.png" alt="Aporte Monetario" class="gift-image" loading="lazy">
+              </div>
+              <div class="gift-info">
+                <span class="gift-title">Aporte Monetario 💸</span>
+                <div class="gift-actions">
+                  <a href="datos_cuenta.html" target="_blank" class="gift-link" style="width: 100%;">
+                    <i class="fa-solid fa-external-link"></i> Ver Referencia
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Confirmación de Asistencia -->
+    <section class="card" id="rsvp">
+      <div class="rsvp-header">
+        <h2>Confirma Tu Asistencia</h2>
+        <span class="rsvp-deadline">Por favor, confirmar antes del 15 de Septiembre</span>
+      </div>
+
+      <form id="rsvp-invitation-form" class="rsvp-form">
+        <!-- Campo Nombre -->
+        <div class="form-group">
+          <label for="rsvp-name" class="form-label">Tu Nombre</label>
+          <input type="text" id="rsvp-name" class="form-input" placeholder="Ej. Fernanda Rojas" required>
+        </div>
+
+        <!-- Opciones de Asistencia (Dropdown Menu) -->
+        <div class="form-group">
+          <label for="rsvp-status-select" class="form-label">Selecciona tu respuesta:</label>
+          <div class="select-wrapper">
+            <select id="rsvp-status-select" name="rsvp-status" class="form-select" required>
+              <option value="" disabled selected>Elige una opción...</option>
+              <option value="si">Sí, asistiré a la celebración 🎉</option>
+              <option value="no">No, no podré ir 😔</option>
+              <option value="tarde">Llegaré un poco tarde ⏰</option>
+            </select>
+            <i class="fa-solid fa-chevron-down select-icon"></i>
+          </div>
+        </div>
+
+        <!-- Botón de Confirmación -->
+        <button type="submit" class="btn btn-gold"
+          style="width: 100%; justify-content: center; gap: 0.75rem; margin-top: 1rem;">
+          <i class="fa-brands fa-whatsapp"></i> Enviar Confirmación por WhatsApp
+        </button>
+      </form>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <h3 class="footer-thanks">Gracias por acompañarme en esta oportunidad</h3>
+      <p class="footer-credits">&copy; 2026 - Cumpleaños de Bastián.</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Confirmación de Reserva Sorpresa -->
+  <div id="reserve-modal-backdrop" class="reserve-modal-backdrop" style="display: none;">
+    <div class="reserve-modal-content">
+      <div class="reserve-modal-icon">🎁</div>
+      <h3 class="reserve-modal-title">¿Reservar este regalo?</h3>
+      <p class="reserve-modal-text">
+        Al confirmar, este regalo quedará apartado para ti. Parecerá como <strong>"🔒 Reservado Sorpresa"</strong> para
+        que ningún otro invitado lo elija, sin revelarle tu identidad a Bastián.
+      </p>
+      <div class="reserve-modal-actions">
+        <button type="button" class="btn-cancel-modal" id="btn-cancel-reserve">Cancelar</button>
+        <button type="button" class="btn-confirm-modal" id="btn-confirm-reserve">Sí, Apartar Regalo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       Scripts del sitio - Carga en orden de dependencias
+       config.js → módulos individuales → main.js (orquestador)
+       ============================================= -->
+  <!-- Scripts con defer: el parser HTML nunca queda bloqueado -->
+  <script src="js/config.js" defer></script>
+  <script src="js/countdown.js" defer></script>
+  <script src="js/music.js" defer></script>
+  <script src="js/rsvp.js" defer></script>
+  <script src="js/calendar.js" defer></script>
+  <script src="js/confetti.js" defer></script>
+  <script src="js/regalos.js" defer></script>
+  <script src="js/utilidades.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>

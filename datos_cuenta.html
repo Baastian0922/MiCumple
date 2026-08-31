@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos Bancarios | Cumpleaños Bastián</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      background: radial-gradient(circle at 50% 30%, #1e1136 0%, #0a0612 80%);
+    }
+
+    .bank-card-container {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(25, 16, 42, 0.75);
+      border: 1px solid var(--primary);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 168, 128, 0.15);
+      text-align: center;
+      animation: fadeInScale 0.4s ease;
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .bank-header-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin: 0 auto 1.25rem;
+      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.5));
+    }
+
+    .bank-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .bank-card-subtitle {
+      font-size: 0.95rem;
+      color: var(--primary);
+      margin-bottom: 1.75rem;
+      font-weight: 500;
+    }
+
+    .details-list {
+      background: rgba(10, 6, 18, 0.6);
+      border: 1px dashed rgba(197, 168, 128, 0.3);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      text-align: left;
+    }
+
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(197, 168, 128, 0.08);
+      padding-bottom: 0.6rem;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .detail-val {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+    }
+
+    .copy-success-msg {
+      display: none;
+      color: #ffd700;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bank-card-container">
+    <img src="img/aporte_dinero.png" alt="Aporte en Dinero" class="bank-header-img">
+    <h1 class="bank-card-title">Datos Transferencia 💸</h1>
+    <p class="bank-card-subtitle">¡Gracias por la lucatón para el cumpleañero! 🍺🎂</p>
+
+    <div class="details-list">
+      <div class="detail-item">
+        <span class="detail-label">Nombre</span>
+        <span class="detail-val">Bastian Mauricio</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">RUT</span>
+        <span class="detail-val">20.192.899-0</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Banco</span>
+        <span class="detail-val">BancoEstado</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Tipo de Cuenta</span>
+        <span class="detail-val">Cuenta RUT</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">N° de Cuenta</span>
+        <span class="detail-val">201928990</span>
+      </div>
+    </div>
+
+    <button id="copy-bank-btn" class="btn btn-gold btn-full-width">
+      <i class="fa-solid fa-copy"></i> Copiar Datos RUT
+    </button>
+    
+    <p id="copy-status" class="copy-success-msg">
+      <i class="fa-solid fa-circle-check"></i> ¡Datos copiados al portapapeles!
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('copy-bank-btn').addEventListener('click', function() {
+      const textToCopy = "Nombre: Bastian Mauricio\nBanco: BancoEstado\nTipo de Cuenta: Cuenta RUT\nN° Cuenta / RUT: 201928990\nRUT: 20.192.899-0";
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btn = document.getElementById('copy-bank-btn');
+        const status = document.getElementById('copy-status');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Copiado Exitosamente!';
+        status.style.display = 'block';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copiar Datos RUT';
+          status.style.display = 'none';
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+
+</html>
