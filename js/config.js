@@ -12,7 +12,7 @@
 const WHATSAPP_NUMBER = "56936834818";
 
 // Fecha y hora exacta del inicio de la celebración
-const FECHA_CELEBRACION = new Date("2026-09-26T14:00:00-03:00").getTime();
+const FECHA_CELEBRACION = new Date("2026-09-26T13:00:00-03:00").getTime();
 
 // Mensajes de confirmación según la opción elegida por el invitado en el formulario
 const MENSAJES_RSVP = {

@@ -38,7 +38,7 @@ function iniciarCalendario() {
       const ubicacion = "Parque La Araucana, Gerónimo de Alderete 2400, La Florida";
 
       // Hora del evento en UTC:
-      // Inicio: 14:00 hora Chile (UTC-3) = 17:00 UTC
+      // Inicio: 13:00 hora Chile (UTC-3) = 16:00 UTC
       // Fin: 18:00 hora Chile (UTC-3) = 21:00 UTC
       const contenidoICS = [
         "BEGIN:VCALENDAR",
@@ -47,7 +47,7 @@ function iniciarCalendario() {
         "BEGIN:VEVENT",
         "UID:" + new Date().getTime() + "@bastiancumple.cl",
         "DTSTAMP:20260810T200000Z",
-        "DTSTART:20260926T170000Z",
+        "DTSTART:20260926T160000Z",
         "DTEND:20260926T210000Z",
         "SUMMARY:" + titulo,
         "DESCRIPTION:" + descripcion,

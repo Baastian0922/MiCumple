@@ -11,7 +11,7 @@ Una aplicación web moderna, interactiva y de estética premium desarrollada par
 
 ## ✨ Características Principales
 
-- ⏳ **Cuenta Regresiva en Tiempo Real**: Sincronizada con la fecha y hora exacta del evento (`26 de Septiembre de 2026, 14:00 hrs`). Presente en el *Hero* y en la sección informativa.
+- ⏳ **Cuenta Regresiva en Tiempo Real**: Sincronizada con la fecha y hora exacta del evento (`26 de Septiembre de 2026, 13:00 hrs`). Presente en el *Hero* y en la sección informativa.
 - 🎵 **Reproductor de Música Flotante**: Permite reproducir música de fondo (*Jazz Sax*) con control flotante y persistencia de preferencia en el navegador.
 - 🎮 **Quiz Interactivo (4 Preguntas)**: Un divertido test que analiza las respuestas de los invitados y desbloquea el catálogo recomendándoles la categoría de regalos más afin.
 - 🎁 **Catálogo de Regalos & Sistema de Reservas**:
